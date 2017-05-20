@@ -14,6 +14,15 @@ describe FaqModule::RemoveService do
       expect(response).to match("Deletado com sucesso")
     end
 
+    it "With valid ID, remove Faq from database" do
+      faq = create(:faq, company: @company)
+      @removeService = FaqModule::RemoveService.new({"id" => faq.id})
+
+      expect(Faq.all.count).to eq(1)
+      response = @removeService.call()
+      expect(Faq.all.count).to eq(0)
+    end
+
     it "With invalid ID, receive error message" do
       @removeService = FaqModule::RemoveService.new({"id" => rand(1..9999)})
       response = @removeService.call()
