@@ -15,7 +15,6 @@ module FaqModule
       end
 
       Faq.transaction do
-        faq = @company.faqs.find(@id)
         # Deleta as tags associadas que não estejam associadas a outros faqs
         faq.hashtags.each do |h|
           if h.faqs.count <= 1
