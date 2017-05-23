@@ -1,4 +1,4 @@
-module FaqModule
+module FaqLinkModule
   class CreateService
     def initialize(params)
       # TODO: identify origin and set company
@@ -14,8 +14,8 @@ module FaqModule
       end
 
       begin
-        Faq.transaction do
-          faq = Faq.create(question: @question, answer: @answer, company: @company)
+        FaqLink.transaction do
+          faq = FaqLink.create(question: @question, answer: @answer, company: @company)
           @hashtags.split(/[\s,]+/).each do |hashtag|
             faq.hashtags << Hashtag.create(name: hashtag, company: @company)
           end

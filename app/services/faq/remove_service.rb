@@ -14,7 +14,7 @@ module FaqModule
         return "Questão inválida, verifique o Id"
       end
 
-      Faq.transaction do
+      FaqLink.transaction do
         # Deleta as tags associadas que não estejam associadas a outros faqs
         faq.hashtags.each do |h|
           if h.faqs.count <= 1

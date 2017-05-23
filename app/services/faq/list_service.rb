@@ -1,4 +1,4 @@
-module FaqModule
+module FaqLinkModule
   class ListService
     def initialize(params, action)
       # TODO: identify origin and set company
@@ -9,7 +9,7 @@ module FaqModule
 
     def call
       if @action == "search"
-        faqs = Faq.search(@query).where(company: @company)
+        faqs = FaqLink.search(@query).where(company: @company)
       elsif @action == "search_by_hashtag"
         faqs = []
         @company.faqs.each do |faq|

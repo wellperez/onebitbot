@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170508012659) do
+ActiveRecord::Schema.define(version: 20170523232755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,15 +19,16 @@ ActiveRecord::Schema.define(version: 20170508012659) do
     t.string "name"
   end
 
-  create_table "faq_hashtags", force: :cascade do |t|
-    t.integer "faq_id"
+  create_table "faq_link_hashtags", force: :cascade do |t|
+    t.integer "fl_id"
     t.integer "hashtag_id"
   end
 
-  create_table "faqs", force: :cascade do |t|
+  create_table "faq_links", force: :cascade do |t|
     t.string "question"
     t.string "answer"
     t.integer "company_id"
+    t.integer "faq_links_type"
   end
 
   create_table "hashtags", force: :cascade do |t|
