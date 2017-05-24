@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523232755) do
+ActiveRecord::Schema.define(version: 20170524002806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170523232755) do
   end
 
   create_table "faq_link_hashtags", force: :cascade do |t|
-    t.integer "fl_id"
+    t.integer "faq_link_id"
     t.integer "hashtag_id"
   end
 
