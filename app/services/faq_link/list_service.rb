@@ -20,7 +20,7 @@ module FaqLinkModule
             end
           end
         else
-          faqs = @company.faq_links
+          faqs = @company.faq_links.where(company: @company, faq_links_type: @faq_links_type )
         end
 
         response = "*Perguntas e Respostas* \n\n"
