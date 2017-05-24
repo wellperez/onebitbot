@@ -7,7 +7,7 @@ describe FaqLinkModule::RemoveService do
 
   describe '#call' do
     it "With valid ID, remove Faq" do
-      faq = create(:faq_link, company: @company)
+      faq = create(:faq_link, company: @company, faq_links_type: 1)
       @removeService = FaqLinkModule::RemoveService.new({"id" => faq.id})
       response = @removeService.call()
 
@@ -15,7 +15,7 @@ describe FaqLinkModule::RemoveService do
     end
 
     it "With valid ID, remove Faq from database" do
-      faq = create(:faq_link, company: @company)
+      faq = create(:faq_link, company: @company, faq_links_type: 1)
       @removeService = FaqLinkModule::RemoveService.new({"id" => faq.id})
 
       expect(FaqLink.all.count).to eq(1)

@@ -2,7 +2,7 @@ require "pg_search"
 include PgSearch
 
 class FaqLink < ActiveRecord::Base
-  validates_presence_of :question, :answer
+  validates_presence_of :question, :answer, :faq_links_type
 
   enum faq_links_type: [:faq, :link]
 
