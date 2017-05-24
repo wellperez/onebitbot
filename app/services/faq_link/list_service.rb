@@ -12,13 +12,13 @@ module FaqLinkModule
         faqs = FaqLink.search(@query).where(company: @company)
       elsif @action == "search_by_hashtag"
         faqs = []
-        @company.faqs.each do |faq|
+        @company.faq_links.each do |faq|
           faq.hashtags.each do |hashtag|
             faqs << faq if hashtag.name == @query
           end
         end
       else
-        faqs = @company.faqs
+        faqs = @company.faq_links
       end
 
       response = "*Perguntas e Respostas* \n\n"

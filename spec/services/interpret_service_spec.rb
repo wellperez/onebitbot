@@ -12,8 +12,8 @@ describe InterpretService do
     end
 
     it "With two faqs, find questions and answer in response" do
-      faq1 = create(:faq, company: @company)
-      faq2 = create(:faq, company: @company)
+      faq1 = create(:faq_link, company: @company)
+      faq2 = create(:faq_link, company: @company)
 
       response = InterpretService.call('list', {})
 
@@ -32,7 +32,7 @@ describe InterpretService do
     end
 
     it "With valid query, find question and answer in response" do
-      faq = create(:faq, company: @company)
+      faq = create(:faq_link, company: @company)
 
       response = InterpretService.call('search', {"query" => faq.question.split(" ").sample})
 
@@ -48,9 +48,9 @@ describe InterpretService do
     end
 
     it "With valid hashtag, find question and answer in response" do
-      faq = create(:faq, company: @company)
+      faq = create(:faq_link, company: @company)
       hashtag = create(:hashtag, company: @company)
-      create(:faq_hashtag, faq: faq, hashtag: hashtag)
+      create(:faq_link_hashtag, faq_link: faq, hashtag: hashtag)
 
       response = InterpretService.call('search_by_hashtag', {"query" => hashtag.name})
 
@@ -67,23 +67,23 @@ describe InterpretService do
     end
 
     it "Without hashtag params, receive a error" do
-      response = InterpretService.call('create', {"question.original" => @question, "answer.original" => @answer})
+      response = InterpretService.call('create', {"question-original" => @question, "answer-original" => @answer})
       expect(response).to match("Hashtag Obrigatória")
     end
 
     it "With valid params, receive success message" do
-      response = InterpretService.call('create', {"question.original" => @question, "answer.original" => @answer, "hashtags.original" => @hashtags})
+      response = InterpretService.call('create', {"question-original" => @question, "answer-original" => @answer, "hashtags-original" => @hashtags})
       expect(response).to match("Criado com sucesso")
     end
 
     it "With valid params, find question and anwser in database" do
-      response = InterpretService.call('create', {"question.original" => @question, "answer.original" => @answer, "hashtags.original" => @hashtags})
-      expect(Faq.last.question).to match(@question)
-      expect(Faq.last.answer).to match(@answer)
+      response = InterpretService.call('create', {"question-original" => @question, "answer-original" => @answer, "hashtags-original" => @hashtags})
+      expect(FaqLink.last.question).to match(@question)
+      expect(FaqLink.last.answer).to match(@answer)
     end
 
     it "With valid params, hashtags are created" do
-      response = InterpretService.call('create', {"question.original" => @question, "answer.original" => @answer, "hashtags.original" => @hashtags})
+      response = InterpretService.call('create', {"question-original" => @question, "answer-original" => @answer, "hashtags-original" => @hashtags})
       expect(@hashtags.split(/[\s,]+/).first).to match(Hashtag.first.name)
       expect(@hashtags.split(/[\s,]+/).last).to match(Hashtag.last.name)
     end
@@ -91,7 +91,7 @@ describe InterpretService do
 
   describe '#remove' do
     it "With valid ID, remove Faq" do
-      faq = create(:faq, company: @company)
+      faq = create(:faq_link, company: @company)
       response = InterpretService.call('remove', {"id" => faq.id})
       expect(response).to match("Deletado com sucesso")
     end

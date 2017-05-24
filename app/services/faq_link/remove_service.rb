@@ -1,4 +1,4 @@
-module FaqModule
+module FaqLinkModule
   class RemoveService
     def initialize(params)
       # TODO: identify origin and set company
@@ -9,7 +9,7 @@ module FaqModule
 
     def call
       begin
-        faq = @company.faqs.find(@id)
+        faq = @company.faq_links.find(@id)
       rescue
         return "Questão inválida, verifique o Id"
       end
@@ -17,7 +17,7 @@ module FaqModule
       FaqLink.transaction do
         # Deleta as tags associadas que não estejam associadas a outros faqs
         faq.hashtags.each do |h|
-          if h.faqs.count <= 1
+          if h.faq_links.count <= 1
             h.delete
           end
         end
