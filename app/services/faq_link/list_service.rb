@@ -9,7 +9,7 @@ module FaqLinkModule
     end
 
     def call
-      if (@faq_links_type == 0) or (@faq_links_type == 1)
+      if (@faq_links_type == "0") or (@faq_links_type == "1")
         if @action == "search"
           faqs = FaqLink.search(@query).where(company: @company, faq_links_type: @faq_links_type)
         elsif @action == "search_by_hashtag"

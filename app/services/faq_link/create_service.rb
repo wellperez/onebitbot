@@ -16,7 +16,7 @@ module FaqLinkModule
 
       begin
         FaqLink.transaction do
-          faq = FaqLink.create(question: @question, answer: @answer, company: @company, faq_links_type: @faq_links_type)
+          faq = FaqLink.create(question: @question, answer: @answer, company: @company, faq_links_type: @faq_links_type.to_i)
           @hashtags.split(/[\s,]+/).each do |hashtag|
             faq.hashtags << Hashtag.create(name: hashtag, company: @company)
           end
