@@ -23,7 +23,11 @@ module FaqLinkModule
       end
 
       if @faq_links_type == "0" || @faq_links_type == "1"
-        response = "*Perguntas e Respostas* \n\n"
+        if @faq_links_type == "0"
+          response = "*Perguntas e Respostas* \n\n"
+        elsif @faq_links_type == "1"
+          response = "*Links e descrições* \n\n"
+        end
         faqs.each do |f|
           response += "*#{f.id}* - "
           response += "*#{f.question}*\n"
