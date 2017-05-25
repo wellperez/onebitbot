@@ -22,7 +22,7 @@ module FaqLinkModule
         faqs = @company.faq_links.where(company: @company, faq_links_type: @faq_links_type )
       end
 
-      if @faq_links_type == 0 || @faq_links_type == 1
+      if @faq_links_type == "0" || @faq_links_type == "1"
         response = "*Perguntas e Respostas* \n\n"
         faqs.each do |f|
           response += "*#{f.id}* - "
