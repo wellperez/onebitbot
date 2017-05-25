@@ -9,20 +9,20 @@ module FaqLinkModule
     end
 
     def call
-      if (@faq_links_type == "0") or (@faq_links_type == "1")
-        if @action == "search"
-          faqs = FaqLink.search(@query).where(company: @company, faq_links_type: @faq_links_type)
-        elsif @action == "search_by_hashtag"
-          faqs = []
-          @company.faq_links.each do |faq|
-            faq.hashtags.each do |hashtag|
-              faqs << faq if hashtag.name == @query
-            end
+      if @action == "search"
+        faqs = FaqLink.search(@query).where(company: @company, faq_links_type: @faq_links_type)
+      elsif @action == "search_by_hashtag"
+        faqs = []
+        @company.faq_links.each do |faq|
+          faq.hashtags.each do |hashtag|
+            faqs << faq if hashtag.name == @query
           end
-        else
-          faqs = @company.faq_links.where(company: @company, faq_links_type: @faq_links_type )
         end
+      else
+        faqs = @company.faq_links.where(company: @company, faq_links_type: @faq_links_type )
+      end
 
+      if @faq_links_type == 0 || @faq_links_type == 1
         response = "*Perguntas e Respostas* \n\n"
         faqs.each do |f|
           response += "*#{f.id}* - "
@@ -35,8 +35,10 @@ module FaqLinkModule
         end
         (faqs.count > 0)? response : "Nada encontrado"
       else
-        "Tipo do conteúdo inválido"
+        'Parâmetros do tipo associado está errado.'
       end
+
+
     end
   end
 end

@@ -90,7 +90,7 @@ describe InterpretService do
 
     it "With invalid params, receive error message" do
       response = InterpretService.call('create', {"question-original" => @question, "answer-original" => @answer, "hashtags-original" => @hashtags})
-      expect(response).to match("Problemas na criação")
+      expect(response).to match("Algo aconteceu com o tipo do registro. :(")
     end
 
     it "With invalid params in enum, receive error message" do

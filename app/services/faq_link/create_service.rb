@@ -12,19 +12,21 @@ module FaqLinkModule
     def call
       if @hashtags == nil || @hashtags == ""
         return 'Hashtag Obrigatória'
-      end
-
-      begin
-        FaqLink.transaction do
-          faq = FaqLink.create(question: @question, answer: @answer, company: @company, faq_links_type: @faq_links_type.to_i)
-          @hashtags.split(/[\s,]+/).each do |hashtag|
-            faq.hashtags << Hashtag.create(name: hashtag, company: @company)
+      elsif @faq_links_type == nil || @faq_links_type == ""
+        return 'Algo aconteceu com o tipo do registro. :('
+      else
+        begin
+          FaqLink.transaction do
+            faq = FaqLink.create(question: @question, answer: @answer, company: @company, faq_links_type: @faq_links_type.to_i)
+            @hashtags.split(/[\s,]+/).each do |hashtag|
+              faq.hashtags << Hashtag.create(name: hashtag, company: @company)
+            end
+            faq.save!
           end
-          faq.save!
+          'Criado com sucesso'
+        rescue
+          'Problemas na criação'
         end
-        'Criado com sucesso'
-      rescue
-        'Problemas na criação'
       end
     end
   end

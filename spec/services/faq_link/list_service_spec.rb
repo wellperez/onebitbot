@@ -39,21 +39,21 @@ describe FaqLinkModule::CreateService do
       @listService = FaqLinkModule::ListService.new({'query' => '', "faq_links_type-original"=> rand(2..100)}, 'search')
 
       response = @listService.call()
-      expect(response).to match("Tipo do conteúdo inválido")
+      expect(response).to match("Parâmetros do tipo associado está errado.")
     end
 
     it "with search command: With empty enum, return type error" do
       @listService = FaqLinkModule::ListService.new({'query' => '', "faq_links_type-original"=> ""}, 'search')
 
       response = @listService.call()
-      expect(response).to match("Tipo do conteúdo inválido")
+      expect(response).to match('Parâmetros do tipo associado está errado.')
     end
 
     it "with search command: With nill enum, return type error" do
       @listService = FaqLinkModule::ListService.new({'query' => '', "faq_links_type-original"=> nil}, 'search')
 
       response = @listService.call()
-      expect(response).to match("Tipo do conteúdo inválido")
+      expect(response).to match("Parâmetros do tipo associado está errado.")
     end
 
     it "with search command: With valid query, find question and answer in response" do
